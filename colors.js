@@ -11,6 +11,13 @@
         var colorsToReturn = [];
 
         var toRGB = function (/* String */ color) {
+            if( /^#?([A-Fa-f0-9]{3})$/.exec(color) ) {
+                var b=color.replace('#',''), color='';
+                if (3 == b.length) { // hex multiplier
+                    $(b.split('')).each(function (i, c){color+=(c+c);});
+                }
+            }
+
         	var regex = /^#?([A-Fa-f0-9]{6})$/.exec(color);
         	if(!regex) {
         		return callback('Invalid hex color');
