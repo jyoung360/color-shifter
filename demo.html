@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script src="colors.js"></script>
+		<script>
+		$(function() {
+			// Handler for .ready() called.
+			$('#hex').bind('click', function(event) {
+				$(this).val('');
+			});
+			
+			$('#steps').bind('click', function(event) {
+				$(this).val('');
+			});
+
+			$('#generate').bind('click', function(event) {
+				var hex = $('#hex').val();
+				var steps = $('#steps').val();
+
+				$.colorShifter({ "hexColor":hex, "steps":steps},function(err,results) {
+					if(err) {
+						$('#target').html('<h3>'+err+'</h3>')
+					}
+					else {
+						$('#target').empty();
+						for(var i in results) {
+							$('#target').append('<div style="float: left; width: 50px; height: 50px; background-color:'+results[i]+'; border:1px solid #ccc"></div>');
+						}
+					}
+				});
+			});
+			
+		});
+		</script>
+	</head>
+	<body>
+		<input type="text" id="hex" value="Enter Hex Value">
+		<input type="text" id="steps" value="Enter Step Number">
+		<input type="button" id="generate" value="Generate">
+		<div id="target"></div>
+	</body>
+</html>
